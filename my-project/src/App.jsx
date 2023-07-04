@@ -8,6 +8,10 @@ function App() {
   return (
     <div className="bg-[#fdfdfd] w-full">
       <Header />
+      <div className="flex px-4 mt-1 xs:pl-0">
+        <Sidebar />
+        <div className=" w-[calc(100%-236px)] pb-4 xs:w-[calc(100%-161px)]"></div>
+      </div>
     </div>
   );
 }
