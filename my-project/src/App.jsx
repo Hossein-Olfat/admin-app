@@ -5,12 +5,15 @@ import routes from "./routes.jsx";
 import { Header } from "./Components/Header/Header";
 import { Sidebar } from "./Components/Sidebar/Sidebar";
 function App() {
+  const Routes = useRoutes(routes);
   return (
     <div className="bg-[#fdfdfd] w-full">
       <Header />
       <div className="flex px-4 mt-1 xs:pl-0">
         <Sidebar />
-        <div className=" w-[calc(100%-236px)] pb-4 xs:w-[calc(100%-161px)]"></div>
+        <div className=" w-[calc(100%-236px)] pb-4 xs:w-[calc(100%-161px)]">
+          {Routes}
+        </div>
       </div>
     </div>
   );
