@@ -1,8 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*::after::before {
-  box-sizing: "border-box";
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
   margin: 0px;
   padding: 0px;
+  font-weight: normal;
+
+  border: none;
+  outline: none;
 }

@@ -1,0 +1,62 @@
+{
+  "newusers": [
+    {
+      "id": 1,
+      "username": "Ali Mohammadi",
+      "title": "writer",
+      "img": "amir.jpg"
+    },
+    {
+      "id": 2,
+      "username": "Sahar Asghari",
+      "title": "SEO engine",
+      "img": "zahra.jpg"
+    },
+    {
+      "id": 3,
+      "username": "Abolfazl Alizadeh",
+      "title": "Hacker",
+      "img": "hamze.jpg"
+    },
+    {
+      "id": 4,
+      "username": "Hossein Ahmadi",
+      "title": "programmer",
+      "img": "qadir.jpg"
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "customer": "Mohammad Mahdizadeh",
+      "date": "12 Jun 2023",
+      "amount": 250,
+      "status": "Approved",
+      "img": "mmd.jpg"
+    },
+    {
+      "id": 2,
+      "customer": "Hasan Akbari",
+      "date": "3 Feb 2023",
+      "amount": 310,
+      "status": "Declined",
+      "img": "amir.jpg"
+    },
+    {
+      "id": 3,
+      "customer": "Reza Kazemi",
+      "date": "28 May 2023",
+      "amount": 117,
+      "status": "Pending",
+      "img": "qadir.jpg"
+    },
+    {
+      "id": 4,
+      "customer": "Farhad Hosseini",
+      "date": "9 Dec 2022",
+      "amount": 407,
+      "status": "Approved",
+      "img": "hamze.jpg"
+    }
+  ]
+}
