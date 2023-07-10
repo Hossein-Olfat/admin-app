@@ -4,14 +4,22 @@ import { json, useRoutes } from "react-router-dom";
 import routes from "./routes.jsx";
 import { Header } from "./Components/Header/Header";
 import { Sidebar } from "./Components/Sidebar/Sidebar";
+
 function App() {
   const Routes = useRoutes(routes);
+
   return (
-    <div className="bg-[#fdfdfd] w-full">
+    <div className="bg-[#fdfdfd] w-full relative">
       <Header />
-      <div className="flex px-4 mt-1 xs:pl-0">
+
+      <div className="flex mt-1 pl-0 pr-4">
         <Sidebar />
-        <div className=" w-[calc(100%-236px)] pb-4 xs:w-[calc(100%-161px)]">
+        <div
+          className=" pb-4 transition-all
+            
+              xss:w-[calc(100%-71px)]
+               w-[calc(100%-236px)] xs:w-[calc(100%-161px)] duration-300"
+        >
           {Routes}
         </div>
       </div>

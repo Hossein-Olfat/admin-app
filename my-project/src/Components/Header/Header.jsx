@@ -2,17 +2,17 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import { MdLanguage } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
-import { AiOutlineMenu } from "react-icons/ai";
+import { Modal_header } from "./Modalbox_header";
 function Header() {
   return (
-    <header className=" w-full h-16 bg-[#fdfdfd] sticky top-0 z-[999]">
+    <header className=" w-full h-16 bg-[#fdfdfd] sticky top-0 z-10">
       <section className=" flex justify-between py-3 items-center flex-wrap px-4">
         <div className=" flex justify-center items-center text-3xl text-[#1e1e87] font-bold mr-16">
           <h1 className=" mr-1">My Panel</h1>
           <IoMdHeart />
         </div>
 
-        <div className="text-[#363636]">
+        <div className="">
           <div className="flex items-center xs:hidden gap-4">
             <div className="relative">
               <IoMdNotificationsOutline className="text-2xl cursor-pointer" />
@@ -38,12 +38,11 @@ function Header() {
               />
             </div>
           </div>
-          <div className="xs:block hidden ">
-            <AiOutlineMenu className="text-2xl cursor-pointer" />
-          </div>
+          <Modal_header />
         </div>
       </section>
     </header>
   );
 }
+//text-[#363636]
 export { Header };

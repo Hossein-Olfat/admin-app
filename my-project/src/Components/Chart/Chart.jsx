@@ -22,7 +22,7 @@ function Chart({ title, data, datakey, grid }) {
   }
 
   return (
-    <div className=" shadow mt-6 px-6 py-3">
+    <div className=" shadow mt-6 px-3 py-3">
       <h1 className="font-bold text-lg mb-4">{title}</h1>
       <ResponsiveContainer
         width="100%"

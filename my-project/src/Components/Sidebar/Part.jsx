@@ -3,9 +3,15 @@ import { NavLink } from "react-router-dom";
 function Part({ title, Part_Childeren }) {
   return (
     <div className=" mb-3">
-      <h1 className="font-bold text-gray-400 mb-2 text-xs">{title}</h1>
-      <ul className=" ml-3">
+      <h1
+        className="font-bold transition-all duration-300 text-gray-400 
+           xss:text-[0rem] xss:h-0 xss:mb-0  mb-2 text-xs"
+      >
+        {title}
+      </h1>
+      <ul className="xss:ml-0 ml-3 transition-all duration-300">
         {Part_Childeren.map((value) => {
+          console.log(value.icon.props.className);
           return (
             <NavLink
               className={({ isActive }) => {
@@ -24,9 +30,18 @@ function Part({ title, Part_Childeren }) {
                   : value.label.replace(/\s/g, "")
               }`}
             >
-              <li className=" flex items-center">
+              <li
+                className=" transition-all delay-75 duration-300 flex items-center xss:gap-0 xss:justify-center xss:text-base
+                     gap-2"
+              >
                 {value.icon}
-                <span>{value.label}</span>
+                <span
+                  className="transition-all
+                    delay-[25ms]
+                   xss:text-[0px]  duration-300"
+                >
+                  {value.label}
+                </span>
               </li>
             </NavLink>
           );

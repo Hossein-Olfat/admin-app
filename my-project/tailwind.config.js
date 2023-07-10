@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       screens: {
-        xs: { max: "520px" },
-        xxs: { max: "388px" },
+        xs: { max: "590px" },
+        xss: { max: "490px" },
       },
     },
   },

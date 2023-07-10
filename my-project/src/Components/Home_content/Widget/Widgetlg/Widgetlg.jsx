@@ -25,7 +25,7 @@ function Widgetlg() {
       <h1 className="text-[1.35rem] font-semibold mb-3 pl-5 xxs:pl-3">
         Latest Transactions
       </h1>
-      <table className="w-[700px] border-separate border-spacing-5 xxs:w-[650px]">
+      <table className="w-[800px] border-separate border-spacing-5 xxs:w-[650px]">
         <thead>
           <tr className="w-full">
             <th className=" text-sm font-semibold text-left">Customer</th>
