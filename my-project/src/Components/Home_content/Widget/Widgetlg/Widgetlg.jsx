@@ -19,7 +19,7 @@ function Widgetlg() {
       ignore = true;
     };
   }, []);
-  console.log(Transactions);
+
   return (
     <>
       <h1 className="text-[1.35rem] font-semibold mb-3 pl-5 xxs:pl-3">

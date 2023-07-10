@@ -3,9 +3,15 @@ import { IoMdHeart } from "react-icons/io";
 import { MdLanguage } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { Modal_header } from "./Modalbox_header";
+import { Modal_context } from "../../modal_Context";
+import { IoIosClose } from "react-icons/io";
+import { AiOutlineMenu } from "react-icons/ai";
+import { useContext } from "react";
+
 function Header() {
+  const ourmodal = useContext(Modal_context);
   return (
-    <header className=" w-full h-16 bg-[#fdfdfd] sticky top-0 z-10">
+    <header className=" w-full h-16 bg-[#fdfdfd] sticky top-0 z-[10]">
       <section className=" flex justify-between py-3 items-center flex-wrap px-4">
         <div className=" flex justify-center items-center text-3xl text-[#1e1e87] font-bold mr-16">
           <h1 className=" mr-1">My Panel</h1>
@@ -38,7 +44,15 @@ function Header() {
               />
             </div>
           </div>
-          <Modal_header />
+          <div className=" xs:block hidden relative">
+            <AiOutlineMenu
+              onClick={(e) => {
+                e.stopPropagation();
+                ourmodal[1]("open");
+              }}
+              className="text-2xl cursor-pointer"
+            />
+          </div>
         </div>
       </section>
     </header>

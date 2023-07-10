@@ -11,7 +11,6 @@ function Part({ title, Part_Childeren }) {
       </h1>
       <ul className="xss:ml-0 ml-3 transition-all duration-300">
         {Part_Childeren.map((value) => {
-          console.log(value.icon.props.className);
           return (
             <NavLink
               className={({ isActive }) => {
