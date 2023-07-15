@@ -5,7 +5,7 @@ function Widgetsm() {
   const [Newusers, setNewusers] = useState([]);
   useEffect(() => {
     let ignore;
-    fetch("http://localhost:3000/newusers")
+    fetch("https://dashboard-admin-server.iran.liara.run/newusers")
       .then((newusers) => {
         return newusers.json();
       })

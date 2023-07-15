@@ -1,15 +1,15 @@
 import { useContext } from "react";
-import { Modal_context } from "../../modal_Context";
+import { Header_modal_context } from "../../modal_Context";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdLanguage } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { IoIosClose } from "react-icons/io";
 function Modal_header() {
-  const ourmodal = useContext(Modal_context);
+  const ourHeader_modal = useContext(Header_modal_context);
   return (
     <div
       className={` transition-all fixed right-8 top-14 shadow ${
-        ourmodal[0] === "close"
+        ourHeader_modal[0] === "close"
           ? " w-0 p-0 text-[0px]"
           : "w-[200px] py-2 z-[999]"
       } bg-white  rounded-lg`}
@@ -26,7 +26,7 @@ function Modal_header() {
         <div className=" flex justify-between items-center px-5 transition-all hover:bg-slate-200 cursor-pointer">
           <IoMdNotificationsOutline
             className={`${
-              ourmodal[0] === "close" ? "text-[0px]" : " text-[1.5rem]"
+              ourHeader_modal[0] === "close" ? "text-[0px]" : " text-[1.5rem]"
             } cursor-pointer`}
           />
           <span>2 Notif</span>
@@ -34,7 +34,7 @@ function Modal_header() {
         <div className=" flex justify-between items-center px-5 transition-all hover:bg-slate-200 cursor-pointer">
           <MdLanguage
             className={`${
-              ourmodal[0] === "close" ? "text-[0px]" : " text-[1.5rem]"
+              ourHeader_modal[0] === "close" ? "text-[0px]" : " text-[1.5rem]"
             } cursor-pointer`}
           />
           <span> 3 news</span>
@@ -42,7 +42,7 @@ function Modal_header() {
         <div className=" flex justify-between items-center px-5 transition-all hover:bg-slate-200 cursor-pointer">
           <IoMdSettings
             className={`${
-              ourmodal[0] === "close" ? "text-[0px]" : " text-[1.5rem]"
+              ourHeader_modal[0] === "close" ? "text-[0px]" : " text-[1.5rem]"
             } cursor-pointer`}
           />
           <span>setting</span>
@@ -52,10 +52,12 @@ function Modal_header() {
         <IoIosClose
           onClick={(e) => {
             e.stopPropagation();
-            ourmodal[1]("close");
+            ourHeader_modal[1]("close");
           }}
           className={`${
-            ourmodal[0] === "close" ? "text-[0px]" : "text-2xl cursor-pointer"
+            ourHeader_modal[0] === "close"
+              ? "text-[0px]"
+              : "text-2xl cursor-pointer"
           }`}
         />
       </div>

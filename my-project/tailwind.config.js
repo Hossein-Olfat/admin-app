@@ -1,13 +1,23 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require("tailwindcss/plugin");
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       screens: {
-        xs: { max: "590px" },
-        xss: { max: "490px" },
+        xs: { max: "640px" },
+        xss: { max: "540px" },
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addVariant }) {
+      addVariant("table-tr", "& tr");
+      addVariant("table-td", "& td");
+      addVariant("table-th", "& th");
+      addVariant("table-th-div", "& .th-div");
+      addVariant("all-childeren", "& *");
+      addVariant("users-name", "& .user-name");
+    }),
+  ],
 };

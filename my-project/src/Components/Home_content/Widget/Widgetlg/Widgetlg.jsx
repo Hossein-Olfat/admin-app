@@ -6,7 +6,7 @@ function Widgetlg() {
 
   useEffect(() => {
     let ignore = false;
-    fetch("http://localhost:3000/transactions")
+    fetch("https://dashboard-admin-server.iran.liara.run/transactions")
       .then((transactions) => {
         return transactions.json();
       })

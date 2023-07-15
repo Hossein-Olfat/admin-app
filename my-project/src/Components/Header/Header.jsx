@@ -3,13 +3,13 @@ import { IoMdHeart } from "react-icons/io";
 import { MdLanguage } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { Modal_header } from "./Modalbox_header";
-import { Modal_context } from "../../modal_Context";
+import { Header_modal_context } from "../../modal_Context";
 import { IoIosClose } from "react-icons/io";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useContext } from "react";
 
 function Header() {
-  const ourmodal = useContext(Modal_context);
+  const ourHeader_modal = useContext(Header_modal_context);
   return (
     <header className=" w-full h-16 bg-[#fdfdfd] sticky top-0 z-[10]">
       <section className=" flex justify-between py-3 items-center flex-wrap px-4">
@@ -48,7 +48,7 @@ function Header() {
             <AiOutlineMenu
               onClick={(e) => {
                 e.stopPropagation();
-                ourmodal[1]("open");
+                ourHeader_modal[1]("open");
               }}
               className="text-2xl cursor-pointer"
             />
