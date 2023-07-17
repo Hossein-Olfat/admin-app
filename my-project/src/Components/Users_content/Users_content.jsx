@@ -1,22 +1,25 @@
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { TiTick } from "react-icons/ti";
+import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Delete_modal_context } from "../../modal_Context.jsx";
 
 // fetch("https://dashboard-admin-server.iran.liara.run/Users/", {
 //   method: "POST",
 //   body: JSON.stringify({
-//     id: 6,
-//     username: "Akram Sadeghi",
-//     img: "zahra.jpg",
-//     email: "Ak78Sadegh@gmail.com",
-//     status: "active",
-//     transactions: "400$",
+//     id: 5,
+//     username: "Ali Alinezhad",
+//     img: "ahmad.jpg",
+//     email: "ah86mad@gmail.com",
+//     status: "none-active",
+//     transactions: "43$",
 //   }),
 //   headers: {
 //     "Content-Type": "application/json",
 //   },
+// });
 // });
 // fetch("https://dashboard-admin-server.iran.liara.run/Users/6", {
 //   method: "DELETE",
@@ -32,22 +35,26 @@ function Users_content() {
   const Deletebox = useContext(Delete_modal_context);
   const [Users, setUsers] = useState([]);
   const [Tablepage, setTablepage] = useState(0);
-  console.log(Deletebox);
-  Users.sort((a, b) => {
-    return a.id - b.id;
-  });
+  const [EditItem, setEditItem] = useState([]);
+  const [Submit, setSubmit] = useState(false);
+  console.log(EditItem.length);
+  // Users.sort((a, b) => {
+  //   return a.id - b.id;
+  // });
   const each_slide = Users.slice(0 + Tablepage * 4, 4 + Tablepage * 4);
+  const start_slide = Tablepage * 4 + 1;
   const numberofpages =
     Math.floor(Users.length / 4) + (Users.length % 4 === 0 ? 0 : 1) - 1;
+
   if (each_slide.length === 0) {
     if (Tablepage === 0) {
+      console.log("there is no user");
     } else {
       setTablepage((prev) => {
         return prev - 1;
       });
     }
   }
-  const start_slide = Tablepage * 4 + 1;
 
   useEffect(() => {
     fetch("https://dashboard-admin-server.iran.liara.run/Users")
@@ -103,7 +110,32 @@ function Users_content() {
                     </div>
                   </td>
                   <td>
-                    <div className="td-div">{User.email}</div>
+                    <input
+                      className=" td-div w-[254.391px] bg-transparent cursor-text overflow-hidden whitespace-nowrap text-ellipsis"
+                      type="email"
+                      value={User.email}
+                      disabled={
+                        User.id ===
+                        EditItem[
+                          EditItem.length === 0 ? 0 : EditItem.length - 1
+                        ]
+                          ? false
+                          : true
+                      }
+                      onChange={(e) => {
+                        setUsers((prev) => {
+                          const users = [...prev];
+                          return users.map((user) => {
+                            if (user.id === User.id) {
+                              user.email = e.target.value;
+                              return user;
+                            } else {
+                              return user;
+                            }
+                          });
+                        });
+                      }}
+                    />
                   </td>
                   <td>
                     <div className="td-div">{User.status}</div>
@@ -114,10 +146,88 @@ function Users_content() {
                   <td>
                     <div className="td-div flex items-center gap-6 relative">
                       <button
-                        className=" bg-green-600 text-white py-[2px] px-[14px] rounded-lg"
-                        type="submit"
+                        onClick={() => {
+                          if (
+                            User.id ===
+                            EditItem[
+                              EditItem.length === 0 ? 0 : EditItem.length - 1
+                            ]
+                          ) {
+                            if (Submit === false) {
+                              setSubmit(true);
+                              const findItem = Users.find((user) => {
+                                return user.id === User.id;
+                              });
+                              fetch(
+                                `https://dashboard-admin-server.iran.liara.run/Users/${User.id}`,
+                                {
+                                  method: "PUT",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                  },
+                                  body: JSON.stringify(findItem),
+                                }
+                              );
+                              setTimeout(() => {
+                                setEditItem([]);
+                                setSubmit(false);
+                              }, 1500);
+                            } else {
+                              console.log(
+                                "please wait until the changes to be registered"
+                              );
+                            }
+                          } else {
+                            setEditItem((prev) => {
+                              const edititem = [...prev];
+                              edititem.push(User.id);
+                              console.log(edititem);
+
+                              if (edititem.length === 2) {
+                                fetch(
+                                  "https://dashboard-admin-server.iran.liara.run/Users/"
+                                )
+                                  .then((init) => {
+                                    return init.json();
+                                  })
+                                  .then((_init) => {
+                                    setUsers(_init);
+                                  });
+
+                                return edititem.slice(1);
+                              } else {
+                                return edititem;
+                              }
+                            });
+                          }
+                        }}
+                        className={`text-white py-[2px] px-[14px] rounded-lg transition-[background-color]
+                        ${
+                          EditItem[
+                            EditItem.length === 0 ? 0 : EditItem.length - 1
+                          ] === User.id
+                            ? `w-[54.81px] h-[28px] flex items-center justify-center
+                            ${
+                              Submit === false
+                                ? " bg-blue-600 text-base"
+                                : "bg-green-600 text-2xl"
+                            }`
+                            : "bg-green-600"
+                        }`}
                       >
-                        Edit
+                        {EditItem[
+                          EditItem.length === 0 ? 0 : EditItem.length - 1
+                        ] === User.id ? (
+                          Submit === false ? (
+                            <MdEdit />
+                          ) : Submit === true ? (
+                            <TiTick />
+                          ) : (
+                            ""
+                          )
+                        ) : (
+                          "Edit"
+                        )}
                       </button>
                       <span
                         className=" relative"
@@ -128,9 +238,9 @@ function Users_content() {
                         <FaTrash className=" text-red-600 cursor-pointer" />
                       </span>
                       <div
-                        className={` rounded-xl absolute top-[-35px] right-[65px] z-30 bg-white  flex flex-col gap-4 items-center justify-evenly transition-all ${
+                        className={` rounded-xl absolute -top-[130%] right-[50px] z-30 bg-white  flex flex-col gap-4 items-center justify-evenly transition-all xss:right-[15px] ${
                           Deletebox[0] === User.id
-                            ? "w-[200px] px-6 py-3"
+                            ? "w-[200px] p-3"
                             : "w-[0px] text-[0px] p-0"
                         }`}
                       >
@@ -152,26 +262,39 @@ function Users_content() {
                                     "Content-Type": "application/json",
                                   },
                                 }
-                              ).then(() => {
-                                fetch(
-                                  "https://dashboard-admin-server.iran.liara.run/Users/"
-                                )
-                                  .then((users) => {
-                                    return users.json();
-                                  })
-                                  .then((_users) => {
-                                    console.log(_users);
-                                    setUsers(_users);
-                                    Deletebox[1](null);
+                              ).then((value) => {
+                                console.log(value);
+
+                                setUsers((prev) => {
+                                  const users = prev.filter((user) => {
+                                    return user.id !== User.id;
                                   });
+                                  return [...users];
+                                });
+
+                                setSubmit(true);
+                                setTimeout(() => {
+                                  setSubmit(false);
+                                }, 1500);
+                                if (
+                                  User.id ===
+                                    EditItem[
+                                      EditItem.length === 0
+                                        ? 0
+                                        : EditItem.length - 1
+                                    ] &&
+                                  Submit === false
+                                ) {
+                                  setEditItem([]);
+                                }
+                                Deletebox[1](null);
                               });
-                              console.log(e);
                             }}
                             className={`${
                               Deletebox[0] === User.id
                                 ? "border-[1px]  w-[calc(50%-8px)] py-[2px] px-[10px] text-[.9rem] "
                                 : "border-0 w-[0px] p-0 text-[0px]"
-                            }  text-center flex items-center justify-center transition-all border-solid border-red-600 text-red-600 rounded-2xl duration-300`}
+                            }  text-center flex items-center justify-center transition-all border-solid border-red-600 text-red-600 rounded-2xl duration-300 hover:bg-red-600 hover:text-white cursor-pointer`}
                           >
                             <button>Remove</button>
                           </div>
@@ -180,7 +303,7 @@ function Users_content() {
                               Deletebox[0] === User.id
                                 ? "border-[1px]  w-[calc(50%-8px)] py-[2px] px-[10px] text-[.9rem]"
                                 : "border-0 w-[0px] p-0 text-[0px] "
-                            }  text-center rounded-2xl flex items-center justify-center transition-all border-solid border-gray-400 duration-300`}
+                            }  text-center rounded-2xl flex items-center justify-center transition-all border-solid border-gray-400 duration-300 hover:bg-gray-400 hover:text-white cursor-pointer`}
                             onClick={() => {
                               Deletebox[1](null);
                             }}
@@ -243,6 +366,7 @@ function Users_content() {
     </div>
   );
 }
+
 // {/* <table className="border-collapse [&**]:border-0 [&*tr]:border-solid [&*tr]:border-b [&*tr]:border-[rgb(224,224,224)] w-[1112px] [&*td]:p-4 [&*td]:text-left [&*th]:py-4 [&*th]:text-left [&*.th-div]:px-4 [&*.th-div]:border-l [&*.th-div]:border-[rgb(224,224,224)] [&*.th-div]:border-solid"> */}
 
 export { Users_content };
