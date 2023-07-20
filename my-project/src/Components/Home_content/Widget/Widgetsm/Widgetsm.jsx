@@ -17,7 +17,7 @@ function Widgetsm() {
     return () => {
       ignore = true;
     };
-  });
+  }, []);
   return (
     <div className=" flex flex-col h-full">
       <h1 className=" text-[1.35rem] font-semibold mb-6">New join Members</h1>

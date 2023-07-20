@@ -39,24 +39,11 @@ function App() {
                 : " w-full h-full bg-[rgba(0,0,0,.3)] absolute top-0 left-0 z-20"
             }`}
           ></div>
-          <div id="eee">
-            <label>
-              <img src="./public/images/amir.jpg" width="40px" />
-            </label>
-            <input
-              id="files"
-              type="file"
-              className=" border-0 hidden invisible"
-              onChange={(e) => {
-                // const x = this.value;
-                console.log(e);
-              }}
-            />
-          </div>
+          <input type="number" />
         </div>
       </Delete_modal_context.Provider>
     </Header_modal_context.Provider>
   );
 }
-
+///^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
 export default App;

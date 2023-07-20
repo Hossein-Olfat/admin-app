@@ -1,26 +1,28 @@
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { IoMdArrowDropdown } from "react-icons/io";
 import { TiTick } from "react-icons/ti";
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Delete_modal_context } from "../../modal_Context.jsx";
+import { Validation } from "../Validation.jsx";
 
-// fetch("https://dashboard-admin-server.iran.liara.run/Users/", {
+// fetch("https://dashboard-admin-server.iran.liara.run/Users", {
 //   method: "POST",
 //   body: JSON.stringify({
-//     id: 5,
-//     username: "Ali Alinezhad",
-//     img: "ahmad.jpg",
-//     email: "ah86mad@gmail.com",
-//     status: "none-active",
-//     transactions: "43$",
+//     id: 4,
+//     username: "Mohammad Mahdizadeh",
+//     img: "mmd.jpg",
+//     email: "MMahdi46zadeh@gmail.com",
+//     status: "active",
+//     transactions: 250,
 //   }),
 //   headers: {
 //     "Content-Type": "application/json",
 //   },
 // });
-// });
+
 // fetch("https://dashboard-admin-server.iran.liara.run/Users/6", {
 //   method: "DELETE",
 // });
@@ -37,10 +39,13 @@ function Users_content() {
   const [Tablepage, setTablepage] = useState(0);
   const [EditItem, setEditItem] = useState([]);
   const [Submit, setSubmit] = useState(false);
-  console.log(EditItem.length);
-  // Users.sort((a, b) => {
-  //   return a.id - b.id;
-  // });
+  const findItem = Users.find((user) => {
+    return (
+      user.id === EditItem[EditItem.length === 0 ? 0 : EditItem.length - 1]
+    );
+  });
+  let datas_error = Validation(findItem);
+  console.log(datas_error);
   const each_slide = Users.slice(0 + Tablepage * 4, 4 + Tablepage * 4);
   const start_slide = Tablepage * 4 + 1;
   const numberofpages =
@@ -62,6 +67,9 @@ function Users_content() {
         return users.json();
       })
       .then((_users) => {
+        _users.sort((a, b) => {
+          return a.id - b.id;
+        });
         setUsers(_users);
       });
   }, []);
@@ -99,19 +107,78 @@ function Users_content() {
                   <td>
                     <div className="td-div">{User.id}</div>
                   </td>
-                  <td>
+                  <td className=" relative">
                     <div className="td-div flex items-center gap-3 user-name">
                       <img
                         src={`./public/images/${User.img}`}
                         width="40px"
                         className=" rounded-[50%]"
                       />
-                      <span>{User.username}</span>
+
+                      <input
+                        className={` pl-1 td-div bg-transparent flex-grow cursor-text overflow-hidden whitespace-nowrap text-ellipsis rounded ${
+                          User.id ===
+                          EditItem[
+                            EditItem.length === 0 ? 0 : EditItem.length - 1
+                          ]
+                            ? `${
+                                datas_error[0] === true
+                                  ? "border-solid border-[1px] border-red-600"
+                                  : "border-solid border-[1px] border-green-600"
+                              }`
+                            : ""
+                        }`}
+                        type="text"
+                        disabled={
+                          User.id ===
+                          EditItem[
+                            EditItem.length === 0 ? 0 : EditItem.length - 1
+                          ]
+                            ? false
+                            : true
+                        }
+                        onInput={(e) => {
+                          setUsers((prev) => {
+                            const users = [...prev];
+                            return users.map((user) => {
+                              if (user.id === User.id) {
+                                user.username = e.target.value;
+                                return user;
+                              } else {
+                                return user;
+                              }
+                            });
+                          });
+                        }}
+                        value={User.username}
+                      />
+                      <label
+                        className={` absolute text-red-600 left-16 bottom-1 transition-[font-size,transform] ${
+                          EditItem[
+                            EditItem.length === 0 ? 0 : EditItem.length - 1
+                          ] === User.id && datas_error[0] === true
+                            ? "text-[12px] scale-100"
+                            : "text-[0px] scale-0"
+                        }`}
+                      >
+                        please enter your name
+                      </label>
                     </div>
                   </td>
-                  <td>
+                  <td className=" relative">
                     <input
-                      className=" td-div w-[254.391px] bg-transparent cursor-text overflow-hidden whitespace-nowrap text-ellipsis"
+                      className={`td-div w-full bg-transparent cursor-text overflow-hidden whitespace-nowrap text-ellipsis rounded ${
+                        User.id ===
+                        EditItem[
+                          EditItem.length === 0 ? 0 : EditItem.length - 1
+                        ]
+                          ? ` ${
+                              datas_error[1] === true
+                                ? "border-solid border-[1px] border-red-600"
+                                : "border-solid border-[1px] border-green-600"
+                            }`
+                          : ""
+                      } `}
                       type="email"
                       value={User.email}
                       disabled={
@@ -122,7 +189,7 @@ function Users_content() {
                           ? false
                           : true
                       }
-                      onChange={(e) => {
+                      onInput={(e) => {
                         setUsers((prev) => {
                           const users = [...prev];
                           return users.map((user) => {
@@ -136,12 +203,135 @@ function Users_content() {
                         });
                       }}
                     />
+                    <label
+                      className={` absolute text-red-600 left-4 bottom-1 transition-[font-size,transform] ${
+                        EditItem[
+                          EditItem.length === 0 ? 0 : EditItem.length - 1
+                        ] === User.id && datas_error[1] === true
+                          ? "text-[12px] scale-100"
+                          : "text-[0px] scale-0"
+                      }`}
+                    >
+                      please enter valid email
+                    </label>
                   </td>
                   <td>
-                    <div className="td-div">{User.status}</div>
+                    {/* Now */}
+                    <div className=" relative">
+                      <select
+                        onChange={(e) => {
+                          setUsers((prev) => {
+                            const users = [...prev];
+                            console.log(e.target.value);
+                            return users.map((user) => {
+                              if (user.id === User.id) {
+                                user.status = e.target.value;
+                                return user;
+                              } else {
+                                return user;
+                              }
+                            });
+                          });
+                        }}
+                        className={` w-full opacity-100 rounded ${
+                          User.id ===
+                          EditItem[
+                            EditItem.length === 0 ? 0 : EditItem.length - 1
+                          ]
+                            ? " border-[1px] border-solid border-green-600 "
+                            : "appearance-none"
+                        }`}
+                        disabled={
+                          User.id ===
+                          EditItem[
+                            EditItem.length === 0 ? 0 : EditItem.length - 1
+                          ]
+                            ? false
+                            : true
+                        }
+                        value={User.status}
+                      >
+                        <option value="active">active</option>
+                        <option value="none-active">none-active</option>
+                      </select>
+                    </div>
                   </td>
-                  <td>
-                    <div className="td-div">{User.transactions}</div>
+                  <td className=" relative">
+                    <div className="flex items-center w-full">
+                      {User.id ===
+                      EditItem[
+                        EditItem.length === 0 ? 0 : EditItem.length - 1
+                      ] ? (
+                        <>
+                          <input
+                            onKeyDown={(e) => {
+                              ["e", "E", "+", "-"].includes(e.key) &&
+                                e.preventDefault();
+                            }}
+                            className={`bg-transparent rounded pl-1 touch-none ${
+                              User.id ===
+                              EditItem[
+                                EditItem.length === 0 ? 0 : EditItem.length - 1
+                              ]
+                                ? `${
+                                    datas_error[2] === true
+                                      ? "border-[1px] border-solid border-red-600"
+                                      : "border-[1px] border-solid border-green-600"
+                                  } `
+                                : ""
+                            }`}
+                            type="number"
+                            maxLength={User.transactions.length}
+                            onChange={(e) => {
+                              setUsers((prev) => {
+                                const users = [...prev];
+
+                                return users.map((user) => {
+                                  if (
+                                    user.id === User.id &&
+                                    e.target.value >= 0
+                                  ) {
+                                    if (
+                                      e.target.value[0] === "0" &&
+                                      e.target.value[1] !== undefined
+                                    ) {
+                                      return user;
+                                    } else {
+                                      user.transactions = e.target.value;
+                                      return user;
+                                    }
+                                  } else {
+                                    return user;
+                                  }
+                                });
+                              });
+                            }}
+                            disabled={
+                              User.id ===
+                              EditItem[
+                                EditItem.length === 0 ? 0 : EditItem.length - 1
+                              ]
+                                ? false
+                                : true
+                            }
+                            value={User.transactions}
+                          />
+                          <label
+                            className={` absolute text-red-600 left-4 bottom-1 transition-[font-size,transform] ${
+                              EditItem[
+                                EditItem.length === 0 ? 0 : EditItem.length - 1
+                              ] === User.id && datas_error[2] === true
+                                ? "text-[12px] scale-100"
+                                : "text-[0px] scale-0"
+                            }`}
+                          >
+                            please enter a number
+                          </label>
+                        </>
+                      ) : (
+                        User.transactions + "$"
+                      )}
+                    </div>
                   </td>
                   <td>
                     <div className="td-div flex items-center gap-6 relative">
@@ -154,24 +344,26 @@ function Users_content() {
                             ]
                           ) {
                             if (Submit === false) {
-                              setSubmit(true);
-                              const findItem = Users.find((user) => {
-                                return user.id === User.id;
-                              });
-                              fetch(
-                                `https://dashboard-admin-server.iran.liara.run/Users/${User.id}`,
-                                {
-                                  method: "PUT",
-                                  headers: {
-                                    "Content-Type": "application/json",
-                                  },
-                                  body: JSON.stringify(findItem),
-                                }
-                              );
-                              setTimeout(() => {
-                                setEditItem([]);
-                                setSubmit(false);
-                              }, 1500);
+                              console.log(findItem, Validation(findItem));
+                              if (datas_error.includes(true) === false) {
+                                setSubmit(true);
+                                fetch(
+                                  `https://dashboard-admin-server.iran.liara.run/Users/${User.id}`,
+                                  {
+                                    method: "PUT",
+                                    headers: {
+                                      "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify(findItem),
+                                  }
+                                );
+                                setTimeout(() => {
+                                  setEditItem([]);
+                                  setSubmit(false);
+                                }, 1500);
+                              } else {
+                                console.log("please enter a valid email");
+                              }
                             } else {
                               console.log(
                                 "please wait until the changes to be registered"
@@ -181,7 +373,6 @@ function Users_content() {
                             setEditItem((prev) => {
                               const edititem = [...prev];
                               edititem.push(User.id);
-                              console.log(edititem);
 
                               if (edititem.length === 2) {
                                 fetch(
