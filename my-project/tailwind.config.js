@@ -8,6 +8,9 @@ export default {
         xs: { max: "640px" },
         xss: { max: "540px" },
       },
+      gridTemplateColumns: {
+        autofit: "repeat(auto-fit,minmax(240px,1fr))",
+      },
     },
   },
   plugins: [

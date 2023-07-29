@@ -1,4 +1,4 @@
 function Newuser() {
-  return <div></div>;
+  return <div className=" h-full"></div>;
 }
 export { Newuser };

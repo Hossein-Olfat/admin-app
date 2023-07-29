@@ -14,6 +14,7 @@ function App() {
   const Routes = useRoutes(routes);
   const [Header_modal, setHeader_modal] = useState("close");
   const [Delete_modal, setDelete_modal] = useState(null);
+  console.log(Delete_modal);
   console.log(Header_modal);
   return (
     <Header_modal_context.Provider value={[Header_modal, setHeader_modal]}>
@@ -23,11 +24,12 @@ function App() {
           <Modal_header />
           <div className="flex mt-1 pl-0 pr-4">
             <Sidebar />
+
             <div
               className=" pb-4 transition-all
-          
-          xss:w-[calc(100%-71px)]
-          w-[calc(100%-236px)] xs:w-[calc(100%-161px)] duration-300"
+              
+              xss:w-[calc(100%-71px)]
+              w-[calc(100%-236px)] xs:w-[calc(100%-161px)] duration-300"
             >
               {Routes}
             </div>
@@ -39,7 +41,6 @@ function App() {
                 : " w-full h-full bg-[rgba(0,0,0,.3)] absolute top-0 left-0 z-20"
             }`}
           ></div>
-          <input type="number" />
         </div>
       </Delete_modal_context.Provider>
     </Header_modal_context.Provider>
