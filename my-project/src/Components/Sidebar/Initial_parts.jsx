@@ -36,7 +36,7 @@ const Initial_Parts = [
         label: "Products",
       },
       { icon: <BiDollar />, label: "Transactions" },
-      { icon: <IoIosStats />, label: "Reports" },
+      // { icon: <IoIosStats />, label: "Reports" },
     ],
   },
   {
@@ -51,21 +51,21 @@ const Initial_Parts = [
       { icon: <BsChatLeft />, label: "Messages" },
     ],
   },
-  {
-    id: 3,
-    title: "Staff",
-    childeren: [
-      { icon: <BsBag />, label: "Manage" },
-      {
-        icon: <IoMdAnalytics />,
-        label: "Analytics",
-      },
-      {
-        icon: <BsExclamationCircleFill />,
-        label: "Reports",
-      },
-    ],
-  },
+  // {
+  //   id: 3,
+  //   title: "Staff",
+  //   childeren: [
+  //     { icon: <BsBag />, label: "Manage" },
+  //     {
+  //       icon: <IoMdAnalytics />,
+  //       label: "Analytics",
+  //     },
+  //     {
+  //       icon: <BsExclamationCircleFill />,
+  //       label: "Reports",
+  //     },
+  //   ],
+  // },
 ];
 
 export { Initial_Parts };

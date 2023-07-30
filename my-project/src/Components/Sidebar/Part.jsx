@@ -12,37 +12,49 @@ function Part({ title, Part_Childeren }) {
       <ul className="xss:ml-0 ml-3 transition-all duration-300">
         {Part_Childeren.map((value) => {
           return (
-            <NavLink
-              className={({ isActive }) => {
-                return `mb-1 block transition-[background-color] duration-300 text-sm hover:bg-slate-200 ${
-                  isActive ? "bg-slate-200" : ""
-                }`;
-              }}
-              key={value.label}
-              to={`/${
-                value.label === "Reports" || value.label === "Analytics"
-                  ? title.replace(/\s/g, "") +
-                    "/" +
-                    value.label.replace(/\s/g, "")
-                  : value.label === "Home"
-                  ? ""
-                  : value.label.replace(/\s/g, "")
-              }`}
-            >
-              <li
-                className=" transition-all delay-75 duration-300 flex items-center xss:gap-0 xss:justify-center xss:text-base
-                     gap-2"
+            <>
+              <NavLink
+                className={({ isActive }) => {
+                  return `mb-1 block transition-[background-color] duration-300 text-sm hover:bg-slate-200 ${
+                    isActive &&
+                    (value.label === "Users" ||
+                      value.label === "Products" ||
+                      value.label === "Products/:ProductId" ||
+                      value.label === "Home")
+                      ? "bg-slate-200"
+                      : ""
+                  }`;
+                }}
+                key={value.label}
+                to={`/${
+                  // value.label === "Reports" || value.label === "Analytics"
+                  //   ? title.replace(/\s/g, "") +
+                  //     "/" +
+                  //     value.label.replace(/\s/g, "") value.label.replace(/\s/g, "")
+                  value.label === "Home"
+                    ? ""
+                    : value.label === "Users" ||
+                      value.label === "Products" ||
+                      value.label === "Products/:Productid"
+                    ? value.label.replace(/\s/g, "")
+                    : ""
+                }`}
               >
-                {value.icon}
-                <span
-                  className="transition-all
+                <li
+                  className=" transition-all delay-75 duration-300 flex items-center xss:gap-0 xss:justify-center xss:text-base
+                     gap-2"
+                >
+                  {value.icon}
+                  <span
+                    className="transition-all
                     delay-[25ms]
                    xss:text-[0px]  duration-300"
-                >
-                  {value.label}
-                </span>
-              </li>
-            </NavLink>
+                  >
+                    {value.label}
+                  </span>
+                </li>
+              </NavLink>
+            </>
           );
         })}
       </ul>
