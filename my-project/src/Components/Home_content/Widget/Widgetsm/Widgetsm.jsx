@@ -31,7 +31,7 @@ function Widgetsm() {
                 className=" flex justify-between items-center flex-wrap gap-3"
               >
                 <div className=" w-10 rounded-[50%] overflow-hidden">
-                  <img src={`./public/images/${newuser.img}`} />
+                  <img src={`/images/${newuser.img}`} />
                 </div>
 
                 <div className="flex flex-col items-center xxs:items-start">

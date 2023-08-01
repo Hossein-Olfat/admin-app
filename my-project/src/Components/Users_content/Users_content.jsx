@@ -8,6 +8,7 @@ import { Spinner } from "../../Spinner.jsx";
 import { Pagination_datas } from "./Pagination_datas.jsx";
 import { Pagination_ui } from "./Pagination_ui.jsx";
 import { Removebox } from "../Removebox.jsx";
+
 // fetch("https://dashboard-admin-server.iran.liara.run/Users", {
 //   method: "POST",
 //   body: JSON.stringify({
@@ -114,7 +115,7 @@ function Users_content() {
                       <td className=" relative">
                         <div className="td-div flex items-center gap-3 user-name">
                           <img
-                            src={`./public/images/${User.img}`}
+                            src={`/images/${User.img}`}
                             width="40px"
                             className=" rounded-[50%]"
                           />

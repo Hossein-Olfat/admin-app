@@ -40,7 +40,7 @@ function Header() {
               <img
                 className=" rounded-[50%]"
                 width={"40px"}
-                src="../public/images/profile.jpg"
+                src="/images/profile.jpg"
               />
             </div>
           </div>

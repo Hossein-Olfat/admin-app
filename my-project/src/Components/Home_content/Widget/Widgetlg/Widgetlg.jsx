@@ -48,7 +48,7 @@ function Widgetlg() {
                     <div className=" flex items-center gap-3 xxs:flex-col xxs:items-start">
                       <img
                         className=" w-[40px] h-[40px] rounded-[50%]"
-                        src={`./public/images/${transaction.img}`}
+                        src={`/images/${transaction.img}`}
                       />
                       <span className=" text-sm">{transaction.customer}</span>
                     </div>

@@ -36,7 +36,7 @@ function ProductItem_content() {
           <section className="flex relative flex-col gap-3 shadow w-[490px]">
             <div
               style={{
-                backgroundImage: `url(../../public/images/${Chosen_product.img})`,
+                backgroundImage: `url(/images/${Chosen_product.img})`,
               }}
               className=" w-full max-w-[490px] aspect-video overflow-hidden bg-cover bg-center"
             ></div>

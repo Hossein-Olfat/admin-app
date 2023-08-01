@@ -19,7 +19,7 @@ function Modal_header() {
           <img
             className=" rounded-[50%]"
             width={"36px"}
-            src="../public/images/profile.jpg"
+            src="/images/profile.jpg"
           />
           <span>Hossein Olfat</span>
         </div>

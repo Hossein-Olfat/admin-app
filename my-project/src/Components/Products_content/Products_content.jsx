@@ -57,7 +57,7 @@ function Products_content() {
                 >
                   <div
                     style={{
-                      backgroundImage: `url(./public/images/${Product.img})`,
+                      backgroundImage: `url(/images/${Product.img})`,
                     }}
                     className={`
               bg-no-repeat w-full aspect-video bg-center bg-cover`}
